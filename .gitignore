@@ -1,0 +1,16 @@
+# Virtual environment folder (replace 'venv' with your actual env folder name)
+venv/
+myenv/
+
+# Local database
+*.sqlite3
+
+# Python compiled files
+__pycache__/
+*.py[cod]
+
+# IDE settings
+.idea/
+.vscode/
+.marscode/
+.qodo/
