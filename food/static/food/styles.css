@@ -1,0 +1,38 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Arial', sans-serif;
+}
+
+body {
+	background-color: #e4adad;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.title {
+	text-align: center;
+	font-size: 36px;
+	margin-bottom: 20px;
+}
+
+.menu {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2fr;
+	justify-items: center;
+	width: 100%;
+}
+
+.menu-item {
+	width: 45%;
+	border: 1px solid #000;
+	gap: 10px;
+	padding: 10px;
+	text-align: center;
+}

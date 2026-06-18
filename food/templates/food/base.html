@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  ```
+  <title>FoodApp</title>
+  ```
+
+</head>
+
+<body class="bg-gradient-to-br from-lime-50 via-white to-green-50 min-h-screen">
+
+  ```
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-md">
+    <div class="container mx-auto px-4">
+
+      <div class="flex justify-between items-center py-4">
+
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-3xl">🍔</span>
+          <span class="text-2xl font-extrabold text-lime-600">
+            FoodApp
+          </span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
+
+          <a href="#" class="hover:text-lime-600 transition duration-300">
+            Home
+          </a>
+
+          <a href="#" class="hover:text-lime-600 transition duration-300">
+            About
+          </a>
+
+          <a href="#" class="hover:text-lime-600 transition duration-300">
+            Menu
+          </a>
+
+          <a href="#" class="hover:text-lime-600 transition duration-300">
+            Contact
+          </a>
+
+          <a href="#" class="hover:text-lime-600 transition duration-300">
+            Orders
+          </a>
+
+          <!-- Cart Button -->
+          <a href="#" class="bg-lime-600 text-white px-5 py-2 rounded-full hover:bg-lime-700 transition duration-300 shadow-md">
+            🛒 Cart
+          </a>
+
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-3xl">
+          ☰
+        </button>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-12">
+    <div class="container mx-auto px-4 text-center">
+
+      <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800">
+        Delicious Food
+        <span class="text-lime-600">Delivered Fast</span>
+      </h1>
+
+      <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+        Explore our menu filled with fresh ingredients,
+        mouth-watering dishes, and unforgettable flavors.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Page Content -->
+  <main class="container mx-auto px-4 pb-10">
+    {% block body %}
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white mt-12">
+    <div class="container mx-auto px-4 py-6 text-center">
+
+      <h3 class="text-xl font-bold">FoodApp</h3>
+
+      <p class="text-gray-400 mt-2">
+        Serving happiness one meal at a time 🍕
+      </p>
+
+      <p class="text-sm text-gray-500 mt-4">
+        © 2026 FoodApp. All rights reserved.
+      </p>
+
+    </div>
+  </footer>
+
+</body>
+
+</html>
