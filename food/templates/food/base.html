@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-  <title>FoodApp</title>
+  <title>Food Menu App</title>
 
 </head>
 
@@ -25,14 +25,14 @@
         <a href="/" class="flex items-center gap-2">
           <span class="text-3xl">🍔</span>
           <span class="text-2xl font-extrabold text-lime-600">
-            FoodApp
+            Food Menu App
           </span>
         </a>
 
         <!-- Desktop Menu -->
         <div class="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
 
-          <a href="#" class="hover:text-lime-600 transition duration-300">
+          <a href="{% url 'food:index' %}" class="hover:text-lime-600 transition duration-300">
             Home
           </a>
 
@@ -53,9 +53,27 @@
           </a>
 
           <!-- Cart Button -->
-          <a href="#" class="bg-lime-600 text-white px-5 py-2 rounded-full hover:bg-lime-700 transition duration-300 shadow-md">
-            🛒 Cart
-          </a>
+          <a href="#"
+   					class="relative flex items-center gap-2 bg-lime-600 text-white px-5 py-2 rounded-full hover:bg-lime-700 transition shadow-md">
+
+						<svg xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="2"
+								stroke="currentColor"
+								class="w-5 h-5">
+								<path stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M2.25 3h1.386a1.5 1.5 0 011.455 1.136L5.838 7.5M7.5 14.25h8.689a1.5 1.5 0 001.474-1.222l1.248-6.75H5.838m1.662 7.5L5.106 4.136M7.5 14.25L6 18m1.5-3.75h8.25"/>
+						</svg>
+
+						<span>Cart</span>
+
+						<span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+								3
+						</span>
+
+					</a>
 
         </div>
 
@@ -95,18 +113,34 @@
   <footer class="bg-gray-900 text-white mt-12">
     <div class="container mx-auto px-4 py-6 text-center">
 
-      <h3 class="text-xl font-bold">FoodApp</h3>
+      <h3 class="text-xl font-bold">Food Menu App</h3>
 
       <p class="text-gray-400 mt-2">
         Serving happiness one meal at a time 🍕
       </p>
 
       <p class="text-sm text-gray-500 mt-4">
-        © 2026 FoodApp. All rights reserved.
+        © 2026 Food Menu App. All rights reserved.
       </p>
 
     </div>
   </footer>
+
+	<a href="{% url 'food:add_food' %}"
+    class="fixed bottom-6 right-6 z-50
+          bg-lime-600 hover:bg-lime-700
+          text-white
+          px-5 py-4
+          rounded-full
+          shadow-lg hover:shadow-xl
+          transition duration-300
+          hover:scale-105
+          flex items-center gap-2">
+
+    <span class="text-2xl font-bold">+</span>
+    <span class="font-semibold">Add Food</span>
+
+  </a>
 
 </body>
 
