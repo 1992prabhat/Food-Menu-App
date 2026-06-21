@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from .models import Item
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
 from .forms import ItemForm
 
 # Create your views here.
@@ -12,6 +12,12 @@ def index(request):
 	context = {'items': items}
 	return render(request, "food/index.html", context)
 
+class ItemListView(ListView):
+	model = Item
+	template_name = "food/index.html"
+	context_object_name = "items"
+
+
 # Show the detail of a food item
 def detail(request, item_id):
 	try:
@@ -22,6 +28,7 @@ def detail(request, item_id):
 
 
 # Add a new food item
+@login_required
 def add_food(request):
 	form = ItemForm(request.POST or None)
 	if request.method == "POST":
@@ -34,6 +41,7 @@ def add_food(request):
 		return render(request, "food/add_food.html", {"form": form})
 
 # Edit a food item
+@login_required
 def edit_food(request, item_id):
 	try:
 		item = Item.objects.get(id=item_id)
@@ -51,6 +59,7 @@ def edit_food(request, item_id):
 
 
 # Delete a food item
+@login_required
 def delete_food(request, item_id):
 	try:
 		item = Item.objects.get(id=item_id)

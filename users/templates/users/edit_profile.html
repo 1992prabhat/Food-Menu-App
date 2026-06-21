@@ -1,0 +1,143 @@
+{% extends 'food/base.html' %}
+
+{% block hero %}
+{% endblock %}
+
+{% block body %}
+
+<div class="container mx-auto px-4 py-10">
+
+	<div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden">
+
+			<div class="bg-gradient-to-r from-lime-500 to-green-600 text-white p-8">
+
+					<h1 class="text-4xl font-bold">
+							Edit Profile
+					</h1>
+
+					<p class="mt-2 text-lime-100">
+							Update your personal information
+					</p>
+
+			</div>
+
+			<form method="POST"
+						enctype="multipart/form-data"
+						class="p-8 space-y-8">
+
+					{% csrf_token %}
+
+					<!-- Current Avatar -->
+					<div class="flex flex-col items-center mb-8">
+
+						<label for="avatar-upload" class="cursor-pointer group relative">
+
+								<img
+										id="avatar-preview"
+										src="{{ user.userprofile.avatar.url }}"
+										alt="{{ user.username }}"
+										class="w-40 h-40 rounded-full object-cover border-4 border-lime-500 shadow-lg group-hover:opacity-75 transition">
+
+								<!-- Overlay -->
+								<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+
+										<div class="bg-black/60 text-white px-4 py-2 rounded-xl">
+												📷 Change Photo
+										</div>
+
+								</div>
+
+						</label>
+
+						<input
+								id="avatar-upload"
+								type="file"
+								name="avatar"
+								accept="image/*"
+								class="hidden">
+
+						<p class="text-sm text-gray-500 mt-3">
+								Click the photo to upload a new profile picture
+						</p>
+
+					</div>
+
+					<div class="grid md:grid-cols-2 gap-6">
+
+							<div>
+									<label class="block mb-2 font-semibold">
+											First Name
+									</label>
+
+									{{ user_form.first_name }}
+							</div>
+
+							<div>
+									<label class="block mb-2 font-semibold">
+											Last Name
+									</label>
+
+									{{ user_form.last_name }}
+							</div>
+
+					</div>
+
+					<div>
+
+							<label class="block mb-2 font-semibold">
+									Website
+							</label>
+
+							{{ profile_form.website }}
+
+					</div>
+
+					<div>
+
+							<label class="block mb-2 font-semibold">
+									Bio
+							</label>
+
+							{{ profile_form.bio }}
+
+					</div>
+
+					<div class="flex gap-4">
+
+							<button
+									type="submit"
+									class="bg-lime-600 hover:bg-lime-700 text-white px-8 py-3 rounded-xl font-semibold transition">
+
+									Save Changes
+
+							</button>
+
+							<a href="{% url 'users:my_profile' %}"
+									class="border border-gray-300 px-8 py-3 rounded-xl font-semibold hover:bg-gray-100">
+
+									Cancel
+
+							</a>
+
+					</div>
+
+			</form>
+
+	</div>
+
+</div>
+
+<script>
+document.getElementById('avatar-upload').addEventListener('change', function(e) {
+
+    const file = e.target.files[0];
+
+    if (file) {
+        document.getElementById('avatar-preview').src =
+            URL.createObjectURL(file);
+    }
+
+});
+</script>
+
+{% endblock %}
