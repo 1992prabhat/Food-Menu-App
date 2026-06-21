@@ -14,13 +14,13 @@ class RegisterForm(UserCreationForm):
 			'password1',
 			'password2',
 		]
-		def __init__(self, *args, **kwargs):
-			super().__init__(*args, **kwargs)
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
 
-			for field in self.fields.values():
-				field.widget.attrs.update({
-					'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none'
-				})
+		for field in self.fields.values():
+			field.widget.attrs.update({
+				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none'
+			})
 
 
 class LoginForm(AuthenticationForm):
@@ -62,10 +62,10 @@ class ProfileUpdateForm(forms.ModelForm):
 
 		widgets = {
 			'bio': forms.Textarea(attrs={
-					'rows': 4,
-					'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500'
-			}),
-			'website': forms.URLInput(attrs={
-					'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500'
-			}),
-		}
+				'rows': 4,
+				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500'
+		}),
+		'website': forms.URLInput(attrs={
+				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500'
+		}),
+	}
