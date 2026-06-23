@@ -64,14 +64,15 @@
         <!-- Actions -->
 				<div class="space-y-4">
 
-    			<!-- Primary Action -->
+					<!-- Primary Action -->
 					<button
-							class="w-full bg-lime-600 hover:bg-lime-700 text-white py-3 rounded-xl font-semibold transition shadow-md">
-							Add to Cart
+						class="w-full bg-lime-600 hover:bg-lime-700 text-white py-3 rounded-xl font-semibold transition shadow-md">
+						🛒 Add to Cart
 					</button>
 
-					<!-- Management Actions -->
-					<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+					{% if item.author == user %}
+						<!-- Owner Actions -->
+						<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
 
 							<a href="{% url 'food:index' %}"
 								class="text-center border border-gray-300 text-gray-700 hover:bg-gray-100 py-3 rounded-xl font-semibold transition">
@@ -84,54 +85,67 @@
 							</a>
 
 							<button
-    						onclick="document.getElementById('deleteModal').classList.remove('hidden')"
-    						class="text-center border border-red-500 text-red-600 hover:bg-red-50 py-3 rounded-xl font-semibold transition">
-    						🗑️ Delete
+									onclick="document.getElementById('deleteModal').classList.remove('hidden')"
+									class="text-center border border-red-500 text-red-600 hover:bg-red-50 py-3 rounded-xl font-semibold transition">
+									🗑️ Delete
 							</button>
+						</div>
+
+					{% else %}
+						<!-- Non-owner Actions -->
+						<a href="{% url 'food:index' %}"
+							class="block w-full text-center border border-gray-300 text-gray-700 hover:bg-gray-100 py-3 rounded-xl font-semibold transition">
+								← Back to Menu
+						</a>
+
+					{% endif %}
+				</div>
+
+
+			</div>
+
+			<!-- Modal -->
+			<div id="deleteModal"
+					class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+					<div class="bg-white p-6 rounded-2xl shadow-xl w-96">
+
+							<h2 class="text-2xl font-bold mb-4">
+									Confirm Delete
+							</h2>
+
+							<p class="text-gray-600 mb-6">
+									Are you sure you want to delete
+									<strong>{{ item.item_name }}</strong>?
+							</p>
+
+							<div class="flex justify-end gap-3">
+
+									<button
+											onclick="document.getElementById('deleteModal').classList.add('hidden')"
+											class="px-4 py-2 border rounded-lg">
+											Cancel
+									</button>
+
+									<form method="POST" action="{% url 'food:delete_food' item.id %}">
+										{% csrf_token %}
+
+										<button
+												type="submit"
+												class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+												Delete
+										</button>
+								</form>
+
+							</div>
 
 					</div>
 
-				</div>
+			</div>
 
-				<!-- Modal -->
-				<div id="deleteModal"
-						class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+		</div>
 
-						<div class="bg-white p-6 rounded-2xl shadow-xl w-96">
-
-								<h2 class="text-2xl font-bold mb-4">
-										Confirm Delete
-								</h2>
-
-								<p class="text-gray-600 mb-6">
-										Are you sure you want to delete
-										<strong>{{ item.item_name }}</strong>?
-								</p>
-
-								<div class="flex justify-end gap-3">
-
-										<button
-												onclick="document.getElementById('deleteModal').classList.add('hidden')"
-												class="px-4 py-2 border rounded-lg">
-												Cancel
-										</button>
-
-										<a href="{% url 'food:delete_food' item.id %}"
-											class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-												Delete
-										</a>
-
-								</div>
-
-						</div>
-
-				</div>
-
-      </div>
-
-    </div>
-
-  </div>
+	</div>
 
 </div>
 
