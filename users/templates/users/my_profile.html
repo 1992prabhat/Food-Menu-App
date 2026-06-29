@@ -75,7 +75,7 @@
 
             {% if user.userprofile.bio %}
                 <p class="text-gray-600 leading-relaxed">
-                    {{ user.userprofile.bio }}
+                    {{ user.userprofile.bio|safe }}
                 </p>
             {% else %}
                 <p class="text-gray-400 italic">

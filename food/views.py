@@ -5,16 +5,34 @@ from django.contrib.auth.decorators import login_required
 # from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import ItemForm
 from .models import Item
+from django.utils import timezone
+from django.core.paginator import Paginator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
+
 # from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
 
 # List all the food items
+@cache_page(60 * 5)
+@vary_on_headers("User-Agent")
 def index(request):
-	items = Item.objects.all()
+	items = Item.objects.get_alive_items().order_by("id")
 
-	context = {'items': items}
+	paginator = Paginator(items, 8)
+	page_number = request.GET.get('page')
+	items = paginator.get_page(page_number)
+
+	context = {
+		"items": items,
+		"page_range": paginator.get_elided_page_range(
+			number=items.number,
+			on_each_side=2,
+			on_ends=2,
+		)
+	,}
 	return render(request, "food/index.html", context)
 
 # class ItemListView(ListView):
@@ -101,7 +119,10 @@ def delete_food(request, pk):
 		if item.author != author:
 			return render(request, "food/403.html")
 		else:
-			item.delete()
+			# item.delete()
+			item.is_deleted = True
+			item.deleted_at = timezone.now()
+			item.save()
 			return redirect("food:index")
 	except Item.DoesNotExist:
 		return render(request, "food/404.html")

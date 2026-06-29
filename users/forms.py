@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 from .models import UserProfile
+from django_ckeditor_5.widgets import CKEditor5Widget
 
 class RegisterForm(UserCreationForm):
 	class Meta:
@@ -61,10 +62,10 @@ class ProfileUpdateForm(forms.ModelForm):
 		fields = ['bio', 'website', 'avatar']
 
 		widgets = {
-			'bio': forms.Textarea(attrs={
+			'bio': CKEditor5Widget(attrs={
 				'rows': 4,
-				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500'
-		}),
+				'class': 'django_ckeditor_5 w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500'
+		}, config_name='default'),
 		'website': forms.URLInput(attrs={
 				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500'
 		}),

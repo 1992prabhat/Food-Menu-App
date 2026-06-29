@@ -54,7 +54,7 @@
 						</div>
 
             <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
-              {{ item.item_description }}
+              {{ item.item_description|safe }}
             </p>
 
             <!-- Button -->
@@ -72,6 +72,9 @@
       {% endfor %}
 
     </div>
+
+		<!-- Pagination -->
+		{% include 'food/pagination.html' with items=items %}
 
   </div>
 </div>

@@ -48,6 +48,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+		"food.middleware.BlockIPMiddleware",
+		"food.middleware.TimerMiddleware",
+		"food.middleware.LogRequestMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -145,3 +148,23 @@ LOGIN_URL = 'users:login'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures')
 MEDIA_URL = '/pictures/'
+
+CKEDITOR_5_CONFIGS = {
+	'default': {
+		'toolbar': [
+			'heading', '|',
+			'bold', 'italic', 'link',
+			'bulletedList', 'numberedList', '|',
+			'blockQuote', 'insertTable', '|',
+			'undo', 'redo'
+		],
+	}
+}
+
+CACHES = {
+	"default": {
+		"BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+		"LOCATION": BASE_DIR / "cache",
+		"TIMEOUT": 60 * 5,
+	},
+}

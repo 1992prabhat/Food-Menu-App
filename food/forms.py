@@ -1,6 +1,8 @@
 from django import forms
 from .models import Item
 from django.core.exceptions import ValidationError
+from django_ckeditor_5.widgets import CKEditor5Widget
+
 import re
 
 class ItemForm(forms.ModelForm):
@@ -15,10 +17,10 @@ class ItemForm(forms.ModelForm):
 			'meal_type': forms.Select(attrs={
 				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none'
 			}),
-			'item_description': forms.Textarea(attrs={
-				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none',
+			'item_description': CKEditor5Widget(attrs={
+				'class': 'django_ckeditor_5 w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none',
 				'rows': 4
-			}),
+			}, config_name='default'),
 			'item_price': forms.NumberInput(attrs={
 				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none'
 			}),

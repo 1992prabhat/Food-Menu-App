@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django_ckeditor_5.fields import CKEditor5Field
+
 
 # Create your models here.
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	bio = models.TextField(blank=True, null=True)
+	bio = CKEditor5Field('Description', default='', config_name='default')
 	website = models.URLField(blank=True, null=True)
 	avatar = models.ImageField(upload_to='avatars/', default='avatars/default.png')
 

@@ -15,3 +15,5 @@ __pycache__/
 .marscode/
 .qodo/
 .prettierignore
+.env
+cache/
