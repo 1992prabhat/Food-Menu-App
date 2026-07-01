@@ -1,81 +1,126 @@
 {% extends 'food/base.html' %}
+{% load custom_filters %}
 {% load static %}
 
 {% block body %}
 <div class="min-h-screen bg-gradient-to-br from-lime-50 to-green-100 py-10">
-  <div class="container mx-auto px-4">
 
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-lime-700">
-        🍽️ Food Menu
-      </h1>
-      <p class="text-gray-600 mt-3">
-        Discover our delicious dishes
-      </p>
-    </div>
+	<div class="container mx-auto px-4">
 
-    <!-- Food Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+		<!-- Header -->
+		<div class="text-center mb-12">
+			<h1 class="text-4xl md:text-5xl font-extrabold text-lime-700">
+					🍽️ Food Menu
+			</h1>
 
-      {% for item in items %}
-      <a href="{% url 'food:detail' item.id %}" class="group">
+			<p class="text-gray-600 mt-3">
+					Discover our delicious dishes
+			</p>
+		</div>
 
-        <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2">
+		<!-- Food Grid -->
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 
-          <!-- Image -->
-          <div class="relative overflow-hidden">
-            <img src="{{ item.item_image }}" alt="{{ item.item_name }}" class="w-full h-56 object-cover group-hover:scale-110 transition duration-500">
+			{% for item in items %}
 
-            <!-- Price Badge -->
-            <span class="absolute top-3 right-3 bg-lime-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow">
-              ₹
-              {{ item.item_price }}
-            </span>
-          </div>
+			<a href="{% url 'food:detail' item.id %}" class="group">
 
-          <!-- Content -->
-          <div class="p-5">
+				<div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden flex flex-col h-full">
 
-            <div class="flex items-center gap-2 mb-2">
+					<!-- Image -->
+					<div class="relative overflow-hidden">
 
-							<h2 class="text-xl font-bold text-gray-800 group-hover:text-lime-600 transition">
-								{{ item.item_name }}
-							</h2>
+						<img src="{{ item.item_image }}"
+							alt="{{ item.item_name }}"
+							class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
 
-							{% if item.meal_type == 'Vegetarian' %}
-								<span class="w-4 h-4 bg-green-600 rounded-full"></span>
-							{% elif item.meal_type == 'Non-Vegetarian' %}
-								<span class="w-4 h-4 bg-red-600 rounded-full"></span>
-							{% elif item.meal_type == 'Mixed' %}
-								<span class="w-4 h-4 bg-orange-500 rounded-full"></span>
-							{% endif %}
+						<!-- Discount Badge -->
+						<span class="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+							🔥 10% OFF
+						</span>
+
+						<!-- Meal Type -->
+						{% if item.meal_type == 'Vegetarian' %}
+							<span class="absolute top-3 left-3 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+									🥗 VEG
+							</span>
+						{% elif item.meal_type == 'Non-Vegetarian' %}
+							<span class="absolute top-3 left-3 bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+									🍗 NON-VEG
+							</span>
+						{% else %}
+							<span class="absolute top-3 left-3 bg-orange-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+									🍽️ MIXED
+							</span>
+						{% endif %}
+
+					</div>
+
+					<!-- Card Body -->
+					<div class="p-5 flex flex-col flex-grow">
+
+						<!-- Title -->
+						<h2 class="text-xl font-bold text-gray-800 group-hover:text-lime-600 transition mb-3">
+							{{ item.item_name }}
+						</h2>
+
+						<!-- Description -->
+						<div class="text-gray-600 text-sm leading-6 flex-grow">
+							{{ item.item_description|striptags|truncatewords:18 }}
+						</div>
+
+						<!-- Price -->
+						<div class="mt-5">
+
+							<div class="flex items-center justify-between">
+
+								<div>
+
+									<span class="text-2xl font-bold text-lime-600">
+										{{ item.item_price|discount:10|currency }}
+									</span>
+
+									<span class="ml-2 text-gray-400 line-through text-sm">
+										{{ item.item_price|currency }}
+									</span>
+
+								</div>
+
+								<span class="bg-lime-100 text-lime-700 text-xs font-semibold px-2 py-1 rounded-full">
+									Save 10%
+								</span>
+
+							</div>
 
 						</div>
 
-            <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
-              {{ item.item_description|safe }}
-            </p>
+						<!-- Button -->
+						<div class="mt-6">
 
-            <!-- Button -->
-            <div class="mt-5">
-              <span class="inline-block bg-lime-100 text-lime-700 px-4 py-2 rounded-lg font-semibold group-hover:bg-lime-600 group-hover:text-white transition">
-                View Details →
-              </span>
-            </div>
+							<div class="w-full bg-lime-600 text-white text-center py-3 rounded-xl font-semibold transition group-hover:bg-lime-700">
 
-          </div>
+								View Details →
 
-        </div>
+							</div>
 
-      </a>
-      {% endfor %}
+						</div>
 
-    </div>
+					</div>
+
+				</div>
+
+			</a>
+
+			{% endfor %}
+
+		</div>
 
 		<!-- Pagination -->
-		{% include 'food/pagination.html' with items=items %}
+		<div class="mt-12">
+			{% include 'food/pagination.html' with items=items %}
+		</div>
 
-  </div>
+	</div>
+
 </div>
 {% endblock %}

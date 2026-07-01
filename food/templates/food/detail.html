@@ -74,7 +74,7 @@
 						<!-- Owner Actions -->
 						<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
 
-							<a href="{% url 'food:index' %}"
+							<a href="{% url 'home' %}"
 								class="text-center border border-gray-300 text-gray-700 hover:bg-gray-100 py-3 rounded-xl font-semibold transition">
 									← Back
 							</a>
@@ -93,7 +93,7 @@
 
 					{% else %}
 						<!-- Non-owner Actions -->
-						<a href="{% url 'food:index' %}"
+						<a href="{% url 'home' %}"
 							class="block w-full text-center border border-gray-300 text-gray-700 hover:bg-gray-100 py-3 rounded-xl font-semibold transition">
 								← Back to Menu
 						</a>

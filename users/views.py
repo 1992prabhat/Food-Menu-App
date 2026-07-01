@@ -49,7 +49,7 @@ def login(request):
 					f'Hello {user.username}!'
 			)
 
-			return redirect('food:index')
+			return redirect('home')
 		else:
 			messages.error(request, 'Please correct the errors below.')
 	else:
@@ -59,7 +59,7 @@ def login(request):
 @login_required
 def user_logout(request):
 	logout(request)
-	return redirect('food:index')
+	return redirect('home')
 
 
 @login_required

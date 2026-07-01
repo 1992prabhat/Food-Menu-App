@@ -18,11 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from food import views as food_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-		path('', include('food.urls')),
+		path('', food_views.index, name="home"),
+		# Food URLs
 		path('food/', include('food.urls')),
+		# User URLs
 		path('user/', include('users.urls')),
 		path("ckeditor5/", include('django_ckeditor_5.urls')),
 	] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,20 +12,30 @@ class ItemForm(forms.ModelForm):
 
 		widgets = {
 			'item_name': forms.TextInput(attrs={
-				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none'
+				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none',
+				'placeholder': 'Enter item name',
+				'required': True
 			}),
 			'meal_type': forms.Select(attrs={
-				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none'
+				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none',
+				'placeholder': 'Select meal type',
+				'required': True
 			}),
 			'item_description': CKEditor5Widget(attrs={
 				'class': 'django_ckeditor_5 w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none',
-				'rows': 4
+				'rows': 4,
+				'placeholder': 'Enter item description',
+				'required': True
 			}, config_name='default'),
 			'item_price': forms.NumberInput(attrs={
-				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none'
+				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none',
+				'placeholder': 'Enter item price',
+				'required': True
 			}),
 			'item_image': forms.URLInput(attrs={
-				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none'
+				'class': 'w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-lime-500 focus:outline-none',
+				'placeholder': 'Enter item image URL',
+				'required': True
 			}),
 		}
 

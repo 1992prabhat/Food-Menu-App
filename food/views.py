@@ -9,9 +9,10 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
-
+import logging
 # from django.contrib.auth.mixins import LoginRequiredMixin
 
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 
@@ -19,8 +20,11 @@ from django.views.decorators.vary import vary_on_headers
 @cache_page(60 * 5)
 @vary_on_headers("User-Agent")
 def index(request):
-	items = Item.objects.get_alive_items().order_by("id")
+	logger.info(f"Fetch all items from database")
+	logger.info(f"[{timezone.now().strftime('%Y-%m-%d %H:%M:%S')}] User {request.user.username} requested for item list from {request.META.get('REMOTE_ADDR') or 'unknown'}")
 
+	items = Item.objects.get_alive_items().order_by("id")
+	logger.debug(f"Items count: {items.count()}")
 	paginator = Paginator(items, 8)
 	page_number = request.GET.get('page')
 	items = paginator.get_page(page_number)
@@ -65,7 +69,7 @@ def add_food(request):
 			item = form.save(commit=False)
 			item.author = request.user
 			item.save()
-			return redirect("food:index")
+			return redirect("home")
 		else:
 			return render(request, "food/add_food.html", {"form": form})
 	else:
@@ -96,7 +100,7 @@ def edit_food(request, pk):
 	if request.method == "POST":
 		if form.is_valid():
 			form.save()
-			return redirect("food:index")
+			return redirect("home")
 		else:
 			return render(request, "food/edit_food.html", {"form": form})
 	else:
@@ -123,7 +127,7 @@ def delete_food(request, pk):
 			item.is_deleted = True
 			item.deleted_at = timezone.now()
 			item.save()
-			return redirect("food:index")
+			return redirect("home")
 	except Item.DoesNotExist:
 		return render(request, "food/404.html")
 
